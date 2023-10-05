@@ -3,11 +3,10 @@ require "test_helper"
 class ArtistsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @artist = artists(:one)
-    @user1 = users(:one)
-    @user2 = users(:two)
     headers = {}
-    @auth_headers1 = Devise::JWT::TestHelpers.auth_headers(headers, @user1)
-    @auth_headers2 = Devise::JWT::TestHelpers.auth_headers(headers, @user2)
+    @auth_headers1 = Devise::JWT::TestHelpers.auth_headers(headers, users(:one))
+    @auth_headers2 = Devise::JWT::TestHelpers.auth_headers(headers, users(:two))
+    @auth_headers3 = Devise::JWT::TestHelpers.auth_headers(headers, users(:three))
   end
 
   test "should get index" do
@@ -18,19 +17,20 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
   test "should create artist" do
     assert_difference("Artist.count") do
       post artists_url,
-           params: { artist: { description: @artist.description, name: @artist.name, user_id: @artist.user_id } },
-           headers: @auth_headers2,
+           params: { artist: { description: @artist.description, name: @artist.name, user_id: users(:three).id } },
+           headers: @auth_headers3,
            as: :json
     end
     assert_response :created
   end
 
   test 'should not create second artist' do
-    post artists_url,
-         params: { artist: { description: @artist.description, name: @artist.name, user_id: @artist.user_id } },
-         headers: @auth_headers1,
-         as: :json
-    assert_response 422
+    assert_raise ActiveRecord::RecordNotUnique do
+      post artists_url,
+           params: { artist: { description: @artist.description, name: @artist.name, user_id: @artist.user_id } },
+           headers: @auth_headers1,
+           as: :json
+    end
   end
 
   test "should show artist" do

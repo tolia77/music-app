@@ -17,17 +17,14 @@ class ArtistsController < ApplicationController
 
   # POST /artists
   def create
-    if current_user.artist
-      render json: "Artist already created", status: :unprocessable_entity
+    @artist = current_user.create_artist(artist_params)
+    if @artist.save
+      render json: @artist, status: :created, location: @artist
     else
-      @artist = current_user.create_artist(artist_params)
-      if @artist.save
-        render json: @artist, status: :created, location: @artist
-      else
-        render json: @artist.errors, status: :unprocessable_entity
-      end
+      render json: @artist.errors, status: :unprocessable_entity
     end
   end
+
 
   # PATCH/PUT /artists/1
   def update

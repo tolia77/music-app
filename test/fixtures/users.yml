@@ -14,3 +14,8 @@ two:
   name: test2
   email: test2@gmail.com
   jti: test2
+
+three:
+  name: test3
+  email: test3@gmail.com
+  jti: test3

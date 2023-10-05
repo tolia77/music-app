@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :song_artists
+  resources :songs
   resources :artists
   get 'users/:id', to: 'users#show'
   devise_for :users, path: '', path_names: {
