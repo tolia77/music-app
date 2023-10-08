@@ -1,8 +1,8 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[ show update destroy ]
-  before_action :authenticate_user!, only: %i[ create update destroy ]
-  before_action only: %i[ update destroy ] do
-    check_user(@artist.user)
+  before_action :authenticate_user!
+  before_action only: %i[update destroy] do
+    authorize(@artist)
   end
   # GET /artists
   def index

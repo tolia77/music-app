@@ -9,6 +9,7 @@ one:
   name: test1
   email: test1@gmail.com
   jti: test1
+  role: 2
 
 two:
   name: test2
@@ -19,3 +20,4 @@ three:
   name: test3
   email: test3@gmail.com
   jti: test3
+  role: 0
