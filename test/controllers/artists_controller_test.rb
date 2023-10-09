@@ -2,11 +2,12 @@ require "test_helper"
 
 class ArtistsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @artist = artists(:one)
+    @artist = artists(:basic1)
     headers = {}
-    @auth_headers1 = Devise::JWT::TestHelpers.auth_headers(headers, users(:one))
-    @auth_headers2 = Devise::JWT::TestHelpers.auth_headers(headers, users(:two))
-    @auth_headers3 = Devise::JWT::TestHelpers.auth_headers(headers, users(:three))
+    @auth_headers_admin = Devise::JWT::TestHelpers.auth_headers(headers, users(:admin))
+    @auth_headers_moderator = Devise::JWT::TestHelpers.auth_headers(headers, users(:moderator))
+    @auth_headers1 = Devise::JWT::TestHelpers.auth_headers(headers, users(:basic1))
+    @auth_headers2 = Devise::JWT::TestHelpers.auth_headers(headers, users(:basic2))
   end
 
   test "should get index" do
@@ -17,8 +18,8 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
   test "should create artist" do
     assert_difference("Artist.count") do
       post artists_url,
-           params: { artist: { description: @artist.description, name: @artist.name, user_id: users(:three).id } },
-           headers: @auth_headers3,
+           params: { artist: { description: @artist.description, name: @artist.name, user_id: users(:basic1).id } },
+           headers: @auth_headers2,
            as: :json
     end
     assert_response :created
@@ -34,7 +35,7 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show artist" do
-    get artist_url(@artist), headers: @auth_headers2, as: :json
+    get artist_url(@artist), headers: @auth_headers1, as: :json
     assert_response :success
   end
 

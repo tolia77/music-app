@@ -5,19 +5,26 @@
 # below each fixture, per the syntax in the comments below
 #
 
-one:
+admin:
+  name: test_admin
+  email: test_admin@gmail.com
+  jti: test_admin
+  role: 2
+
+moderator:
+  name: test_moderator
+  email: test_moderator@gmail.com
+  jti: test_moderator
+  role: 1
+
+basic1:
   name: test1
   email: test1@gmail.com
   jti: test1
-  role: 2
+  role: 0
 
-two:
+basic2:
   name: test2
   email: test2@gmail.com
   jti: test2
-
-three:
-  name: test3
-  email: test3@gmail.com
-  jti: test3
   role: 0

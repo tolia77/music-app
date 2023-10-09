@@ -1,11 +1,14 @@
-one:
-  name: test
-  description: test
-  user: one
+admin:
+  name: test_admin
+  description: test_admin
+  user: admin
 
-two:
+moderator:
+  name: test_moderator
+  description: test_moderator
+  user: moderator
+
+basic1:
   name: test1
   description: test1
-  user: two
-
-
+  user: basic1

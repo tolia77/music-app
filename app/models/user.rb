@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def moderator?
-    self.role == 1
+    self.role == "moderator"
   end
 
   def admin?
