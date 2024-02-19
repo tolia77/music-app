@@ -15,7 +15,11 @@ class User < ApplicationRecord
   has_one :artist, dependent: :destroy
 
   def artist?
-    self.artist ? true : false
+    !!self.artist
+  end
+
+  def basic?
+    self.role == "basic"
   end
 
   def moderator?

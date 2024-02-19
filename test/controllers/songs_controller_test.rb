@@ -11,7 +11,7 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get songs_url, as: :json
+    get songs_url, as: :json, headers: @auth_headers_admin
     assert_response :success
   end
 

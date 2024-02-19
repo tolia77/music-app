@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:user_id])
+    @user = User.find(params[:id])
     if current_user == @user
       render json: @user
     else

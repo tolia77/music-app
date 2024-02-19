@@ -9,7 +9,7 @@ class ArtistPolicy
   end
 
   def index?
-    false
+    @user.admin?
   end
 
   def show?

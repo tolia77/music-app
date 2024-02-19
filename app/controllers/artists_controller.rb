@@ -7,16 +7,22 @@ class ArtistsController < ApplicationController
   # GET /artists
   def index
     @artists = Artist.all
+    authorize(@artists)
     render json: @artists
   end
 
   # GET /artists/1
   def show
-    render json: @artist
+    if @artist.avatar
+      render json: @artist.as_json().merge(avatar_path: url_for(@artist.avatar))
+    else
+      render json: @artist
+    end
   end
 
   # POST /artists
   def create
+    p params
     @artist = current_user.create_artist(artist_params)
     if @artist.save
       render json: @artist, status: :created, location: @artist
@@ -48,6 +54,6 @@ class ArtistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def artist_params
-      params.require(:artist).permit(:name, :description, :user_id)
+      params.require(:artist).permit(:name, :description, :user_id, :avatar)
     end
 end

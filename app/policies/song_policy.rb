@@ -9,7 +9,7 @@ class SongPolicy
   end
 
   def index?
-    false
+    @user.admin?
   end
 
   def show?

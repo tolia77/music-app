@@ -11,7 +11,7 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get artists_url, headers: @auth_headers1, as: :json
+    get artists_url, headers: @auth_headers_admin, as: :json
     assert_response :success
   end
 
@@ -70,4 +70,6 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
              as: :json
     assert_response :forbidden
   end
+
+
 end

@@ -6,6 +6,7 @@ class SongsController < ApplicationController
   def index
     @songs = Song.all
 
+    authorize(@songs)
     render json: @songs
   end
 
