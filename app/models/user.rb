@@ -13,6 +13,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
   has_one :artist, dependent: :destroy
+  validates :name, presence: true, length: { maximum: 32 }
 
   def artist?
     !!self.artist

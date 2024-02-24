@@ -18,7 +18,7 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
   test "should create artist" do
     assert_difference("Artist.count") do
       post artists_url,
-           params: { artist: { description: @artist.description, name: @artist.name, user_id: users(:basic1).id } },
+           params: { artist: { description: @artist.description, name: @artist.name, user_id: users(:basic2).id } },
            headers: @auth_headers2,
            as: :json
     end

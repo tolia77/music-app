@@ -13,8 +13,8 @@ class ArtistsController < ApplicationController
 
   # GET /artists/1
   def show
-    if @artist.avatar
-      render json: @artist.as_json().merge(avatar_path: url_for(@artist.avatar))
+    if @artist.avatar.attached?
+      render json: @artist.as_json.merge(avatar_path: url_for(@artist.avatar))
     else
       render json: @artist
     end
@@ -22,7 +22,6 @@ class ArtistsController < ApplicationController
 
   # POST /artists
   def create
-    p params
     @artist = current_user.create_artist(artist_params)
     if @artist.save
       render json: @artist, status: :created, location: @artist
