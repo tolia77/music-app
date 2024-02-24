@@ -11,8 +11,18 @@ class AlbumsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get albums_url, as: :json
+    get albums_url, headers: @auth_headers_admin, as: :json
     assert_response :success
+  end
+
+  test "should not get index without authorization" do
+    get albums_url, as: :json
+    assert_response 401
+  end
+
+  test "should not get index without authentication" do
+    get albums_url, headers: @auth_headers1, as: :json
+    assert_response :forbidden
   end
 
   test "should create album" do

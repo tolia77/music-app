@@ -4,9 +4,14 @@ class AlbumsController < ApplicationController
 
   # GET /albums
   def index
-    @albums = Album.all
-
-    render json: @albums
+    if params[:artist_id]
+      render json: Artist.find(params[:artist_id]).albums
+    else
+      authenticate_user!
+      @albums = Album.all
+      authorize @albums
+      render json: @albums
+    end
   end
 
   # GET /albums/1

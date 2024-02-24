@@ -47,7 +47,7 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should require authorization to update' do
+  test 'should bot update artist as other user' do
     patch artist_url(@artist),
           params: { artist: { description: @artist.description, name: @artist.name, user_id: @artist.user_id } },
           headers: @auth_headers2,
@@ -64,7 +64,7 @@ class ArtistsControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
-  test 'should require authorization to destroy' do
+  test 'should not destroy artist as other user' do
     delete artist_url(@artist),
              headers: @auth_headers2,
              as: :json

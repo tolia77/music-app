@@ -25,7 +25,7 @@ class ArtistPolicy
   end
 
   def destroy?
-    @user.id == @artist.user.id
+    @user.id == @artist.user.id || @user.admin?
   end
 
   class Scope

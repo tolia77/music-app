@@ -15,6 +15,16 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not get index without authorization" do
+    get songs_url, as: :json
+    assert_response 401
+  end
+
+  test "should get index without authentication" do
+    get songs_url, as: :json, headers: @auth_headers1
+    assert_response :forbidden
+  end
+
   test "should create song" do
     assert_difference("Song.count") do
       post songs_url, params: { song: { title: @song.title } },
@@ -51,6 +61,13 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not update song as other user" do
+    patch song_url(@song),
+          headers: @auth_headers2,
+          params: { song: { title: @song.title } }, as: :json
+    assert_response :forbidden
+  end
+
   test "should destroy song" do
     assert_difference("Song.count", -1) do
       delete song_url(@song),
@@ -59,5 +76,12 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :no_content
+  end
+
+  test "should not destroy song as other user" do
+    delete song_url(@song),
+           headers: @auth_headers2,
+           as: :json
+    assert_response :forbidden
   end
 end

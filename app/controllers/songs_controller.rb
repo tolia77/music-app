@@ -4,10 +4,14 @@ class SongsController < ApplicationController
 
   # GET /songs
   def index
-    @songs = Song.all
-
-    authorize(@songs)
-    render json: @songs
+    if params[:artist_id]
+      render json: Artist.find(params[:artist_id]).songs
+    else
+      authenticate_user!
+      @songs = Song.all
+      authorize(@songs)
+      render json: @songs
+    end
   end
 
   # GET /songs/1
