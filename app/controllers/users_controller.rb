@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if current_user == @user
-      render json: @user
+      render json: @user.to_json(except: %[jti])
     else
-      render json: @user.to_json(only: %i[id name created_at])
+      render json: @user.to_json(only: %i[id name role created_at])
     end
   end
 end

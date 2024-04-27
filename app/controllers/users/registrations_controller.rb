@@ -34,9 +34,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+   def update
+     super
+     if params[:user][:name]
+       current_user.name = params[:user][:name]
+       current_user.save!
+     end
+   end
 
   # DELETE /resource
   # def destroy

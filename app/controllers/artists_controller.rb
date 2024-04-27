@@ -14,7 +14,7 @@ class ArtistsController < ApplicationController
   # GET /artists/1
   def show
     if @artist.avatar.attached?
-      render json: @artist.as_json.merge(avatar_path: url_for(@artist.avatar))
+      render json: @artist.as_json.merge(avatar_path: url_for(@artist.avatar.variant(:standard)))
     else
       render json: @artist
     end
